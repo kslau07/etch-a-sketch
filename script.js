@@ -16,9 +16,11 @@ topBar.appendChild(topBarTitle)
 
 
 const inputBox = document.createElement('input')
-inputBox.setAttribute('type', 'text');
+inputBox.setAttribute('type', 'range')
+inputBox.setAttribute('min', 1)
+inputBox.setAttribute('max', 50)
 inputBox.setAttribute('value', 25);
-inputBox.setAttribute("id", "inputBox")
+inputBox.setAttribute("id", "slider")
 inputBox.setAttribute('class', 'tool')
 
 const buttonNewGrid = document.createElement('button');
@@ -53,7 +55,7 @@ function createGrid() {
 
   removeAllCells() //remove old cells/nodes
 
-  let numOfCellsOneSide = document.getElementById('inputBox').value
+  let numOfCellsOneSide = document.getElementById('slider').value
 
 
   
@@ -110,7 +112,7 @@ function changeCellColor(event) {
   if (toggleCellChangeType == 1) {
     document.querySelector(`#${cellid}`).style.backgroundColor = `rgb(${randInt()}, ${randInt()}, ${randInt()})`;
   } else if (toggleCellChangeType == 2) {
-    document.querySelector(`#${cellid}`).style.backgroundColor = "rgb(0, 0, 0)";
+    document.querySelector(`#${cellid}`).style.backgroundColor = "rgb(121, 141, 145)";
   }
 }
 
@@ -131,10 +133,5 @@ function clearGrid() {
   }, 0)
 
 }
-
-// list.forEach(el => el.addEventListener('mouseout', removeColor))
-//setTimeout(removeColor, 1000)
-
-
 
 createGrid();
