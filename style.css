@@ -1,15 +1,25 @@
+body {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .container {
   display:flex;
   flex-direction: row;
   flex-wrap: wrap;
-  height: 700px;
-  width: 700px;
+  /* height: 700px; */
+  width: 1000px;
 }
 
-div {
-  border: 1px solid black;
-  height: 100px;
-  width: 100px;
+.cell {
+  box-shadow: 1px 1px lightblue;
+  /* border: 0px solid lightblue; */
+  /* height: 98px; */
+  /* width: 98px; */
+  margin: 0px;
+  border-radius: .5em;
 }
 
 .changeColor {
