@@ -4,6 +4,23 @@
 
 // remove all old divs before populating new divs / calculations
 
+const topBar = document.querySelector('.topBar')
+
+const inputBox = document.createElement('input')
+inputBox.setAttribute('type', 'text');
+inputBox.setAttribute('value', 10);
+inputBox.setAttribute("id", )
+
+
+//<input type="text" value="10" id="textbox">
+//<button id="newGrid">Generate new grid</button>
+//<button id="clearGrid">Clear grid</button>
+
+
+
+
+// const outerBox = document.createElement('div');
+// container.appendChild(outerBox)
 const outerBox = document.querySelector('.outerBox');
 
 function createGrid() {
@@ -33,7 +50,7 @@ function createGrid() {
 
   // set listener to each cell
   const nodeList = document.querySelectorAll('.cell')
-  nodeList.forEach(cell => cell.addEventListener('mouseover', changeColor))
+  nodeList.forEach(cell => cell.addEventListener('mouseover', changeCellColor))
 }
 
 function removeAllCells() {
@@ -46,12 +63,19 @@ function removeAllCells() {
   })
 }
 
-function changeColor(event) {
+let toggleCellChangeType = 2;
+
+function changeCellColor(event) {
   const randInt = () => Math.round(Math.random() * 255)
-  const key = event.target.id
-  // document.querySelector(`#${key}`).classList.add('changeColor')
-  document.querySelector(`#${key}`).style.backgroundColor = `rgb(${randInt()}, ${randInt()}, ${randInt()})`;
-  // document.querySelector(`#${key}`).style.borderColor = `rgb(${randInt()}, ${randInt()}, ${randInt()})`;
+  const cellid = event.target.id
+
+  // document.querySelector(`#${cellid}`).classList.add('changeCellColor') // Another way, use css page
+  
+  if (toggleCellChangeType == 1) {
+    document.querySelector(`#${cellid}`).style.backgroundColor = `rgb(${randInt()}, ${randInt()}, ${randInt()})`;
+  } else if (toggleCellChangeType == 2) {
+    document.querySelector(`#${cellid}`).style.backgroundColor = "rgb(0, 0, 0)";
+  }
 }
 
 function removeColor(event) {
@@ -63,10 +87,11 @@ function clearGrid() {
   const nodeList = document.querySelectorAll('.outerBox div')
   const array = Array.from(nodeList)
   
+  // practice reduce, very flexible
   array.reduce((total, n) => {
     const child = document.getElementById(`${n.id}`)
     child.style.backgroundColor = "rgb( 255, 255, 255 )";
-  })
+  }, 0)
 
 }
 
@@ -79,5 +104,7 @@ btn.addEventListener('click', createGrid)
 
 const btnClearGrid = document.querySelector('#clearGrid')
 btnClearGrid.addEventListener('click', clearGrid)
+
+
 
 createGrid();
