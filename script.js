@@ -2,33 +2,52 @@
 // if 10x10 or 25x25 or 100x100, somehow all cells will
 // fit perfectly inside fixed outer box
 
-const container = document.querySelector('.container');
+// remove all old divs before populating new divs / calculations
 
-function makeBox(val) {
+const outerBox = document.querySelector('.outerBox');
 
-  let outerBox = 1000;
-  let totalCells = val ** 2;
+function createGrid() {
+
+  removeAllCells() //remove old cells/nodes
+
+  let numOfCellsOneSide = document.getElementById('textbox').value
+  
+  if (numOfCellsOneSide > 100) {
+    numOfCellsOneSide = 100
+  };
+  
+  let outerBoxWidth = 1000;
+  let totalCells = numOfCellsOneSide ** 2;
 
   for (i = 1; i <= totalCells; i++) {
 
-    const autoSize = Math.floor(outerBox/val)
+    const cellWidth = Math.floor(outerBoxWidth/numOfCellsOneSide)
     let div = document.createElement('div');
 
     div.setAttribute('id', `box${i}`);
     div.setAttribute('class', 'cell');
-    div.style.height = `${autoSize}px`;
-    div.style.width = `${autoSize}px`;
-    container.appendChild(div); 
+    div.style.height = `${cellWidth}px`;
+    div.style.width = `${cellWidth}px`;
+    outerBox.appendChild(div);
   }
+
+  // set listener to each cell
+  const nodeList = document.querySelectorAll('.cell')
+  nodeList.forEach(cell => cell.addEventListener('mouseover', changeColor))
 }
 
-makeBox(32);
+function removeAllCells() {
+  const oldCells = document.querySelectorAll('.outerBox > *');
 
+  oldCells.forEach(cell => {
+    let child = document.getElementById(`${cell.id}`);
+    outerBox.removeChild(child)
+    // document.getElementById(`${cell.id}`).remove() // Second way to remove nodes
+  })
+}
 
 function changeColor(event) {
-
   const randInt = () => Math.round(Math.random() * 255)
-  
   const key = event.target.id
   // document.querySelector(`#${key}`).classList.add('changeColor')
   document.querySelector(`#${key}`).style.backgroundColor = `rgb(${randInt()}, ${randInt()}, ${randInt()})`;
@@ -40,10 +59,25 @@ function removeColor(event) {
   document.querySelector(`#${key}`).style.backgroundColor = "";
 }
 
-const list = document.querySelectorAll('.cell')
-list.forEach(el => el.addEventListener('mouseover', changeColor))
+function clearGrid() {
+  const nodeList = document.querySelectorAll('.outerBox div')
+  const array = Array.from(nodeList)
+  
+  array.reduce((total, n) => {
+    const child = document.getElementById(`${n.id}`)
+    child.style.backgroundColor = "rgb( 255, 255, 255 )";
+  })
+
+}
+
 // list.forEach(el => el.addEventListener('mouseout', removeColor))
 //setTimeout(removeColor, 1000)
 
 const btn = document.querySelector('button');
-btn.addEventListener('click', () => makeBox(10))
+// btn.addEventListener('click', () => createGrid(10))
+btn.addEventListener('click', createGrid)
+
+const btnClearGrid = document.querySelector('#clearGrid')
+btnClearGrid.addEventListener('click', clearGrid)
+
+createGrid();
