@@ -6,17 +6,43 @@
 
 const topBar = document.querySelector('.topBar')
 
+const topBarTitle = document.createElement('div')
+topBarTitle.setAttribute('id', 'topBarTitle');
+topBarTitle.classList.add('content');
+topBarTitle.textContent = "ETCH - A - SKETCH";
+
+topBar.appendChild(topBarTitle)
+
+
+
 const inputBox = document.createElement('input')
 inputBox.setAttribute('type', 'text');
-inputBox.setAttribute('value', 10);
-inputBox.setAttribute("id", )
+inputBox.setAttribute('value', 25);
+inputBox.setAttribute("id", "inputBox")
+inputBox.setAttribute('class', 'tool')
 
+const buttonNewGrid = document.createElement('button');
+buttonNewGrid.classList.add('content');
+buttonNewGrid.textContent = "New Grid"
+buttonNewGrid.addEventListener('click', createGrid);
+buttonNewGrid.setAttribute('class', 'tool')
 
-//<input type="text" value="10" id="textbox">
-//<button id="newGrid">Generate new grid</button>
-//<button id="clearGrid">Clear grid</button>
+const buttonClearGrid = document.createElement('button');
+buttonClearGrid.classList.add('text');
+buttonClearGrid.textContent = "Clear Grid";
+buttonClearGrid.addEventListener('click', clearGrid)
+buttonClearGrid.setAttribute('class', 'tool')
 
+const buttonToggleColor = document.createElement('button');
+buttonToggleColor.classList.add("content");
+buttonToggleColor.textContent = "Toggle Color";
+buttonToggleColor.addEventListener('click', toggleColor)
+buttonToggleColor.setAttribute('class', 'tool')
 
+topBar.appendChild(inputBox);
+topBar.appendChild(buttonNewGrid);
+topBar.appendChild(buttonClearGrid);
+topBar.appendChild(buttonToggleColor);
 
 
 // const outerBox = document.createElement('div');
@@ -27,7 +53,9 @@ function createGrid() {
 
   removeAllCells() //remove old cells/nodes
 
-  let numOfCellsOneSide = document.getElementById('textbox').value
+  let numOfCellsOneSide = document.getElementById('inputBox').value
+
+
   
   if (numOfCellsOneSide > 100) {
     numOfCellsOneSide = 100
@@ -63,7 +91,15 @@ function removeAllCells() {
   })
 }
 
-let toggleCellChangeType = 2;
+let toggleCellChangeType = 1;
+
+function toggleColor() {
+  if (toggleCellChangeType == 2) {
+    toggleCellChangeType = 1;
+  } else {
+    toggleCellChangeType = 2;
+  }
+}
 
 function changeCellColor(event) {
   const randInt = () => Math.round(Math.random() * 255)
@@ -90,20 +126,14 @@ function clearGrid() {
   // practice reduce, very flexible
   array.reduce((total, n) => {
     const child = document.getElementById(`${n.id}`)
-    child.style.backgroundColor = "rgb( 255, 255, 255 )";
+    // child.style.backgroundColor = "rgb( 255, 255, 255 )";
+    child.style.backgroundColor = "";
   }, 0)
 
 }
 
 // list.forEach(el => el.addEventListener('mouseout', removeColor))
 //setTimeout(removeColor, 1000)
-
-const btn = document.querySelector('button');
-// btn.addEventListener('click', () => createGrid(10))
-btn.addEventListener('click', createGrid)
-
-const btnClearGrid = document.querySelector('#clearGrid')
-btnClearGrid.addEventListener('click', clearGrid)
 
 
 
