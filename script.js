@@ -13,8 +13,6 @@ topBarTitle.textContent = "ETCH - A - SKETCH";
 
 topBar.appendChild(topBarTitle)
 
-
-
 const inputBox = document.createElement('input')
 inputBox.setAttribute('type', 'range')
 inputBox.setAttribute('min', 1)
@@ -57,8 +55,6 @@ function createGrid() {
 
   let numOfCellsOneSide = document.getElementById('slider').value
 
-
-  
   if (numOfCellsOneSide > 100) {
     numOfCellsOneSide = 100
   };
@@ -116,10 +112,10 @@ function changeCellColor(event) {
   }
 }
 
-function removeColor(event) {
-  const key = event.target.id;
-  document.querySelector(`#${key}`).style.backgroundColor = "";
-}
+// function removeColor(event) {
+//   const key = event.target.id;
+//   document.querySelector(`#${key}`).style.backgroundColor = "";
+// }
 
 function clearGrid() {
   const nodeList = document.querySelectorAll('.outerBox div')
